@@ -51,10 +51,11 @@ const labyrinthSlice = createSlice({
     },
     setCurrentCell: (state, action: PayloadAction<Coordinate>) => {
       state.currentCell = action.payload;
-    }
+    },
+    reset: () => initialState
   }
 });
 
-export const { setCurrentCell, setStartCell } = labyrinthSlice.actions;
+export const { setCurrentCell, setStartCell, reset } = labyrinthSlice.actions;
 
 export default labyrinthSlice.reducer;

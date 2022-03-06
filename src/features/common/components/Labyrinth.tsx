@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Board, Row, Cell, Token } from './Labyrinth.styled';
 import useKeyPress from 'features/common/hooks/useKeyPress';
 import { Coordinate } from 'features/common/types';
-import { isValidCoordinate, isBlockedCell } from 'features/common/utils';
+import { isValidCell, isRightCell, isBottomCell, isBlockedCell, isSameCell } from 'features/common/utils';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { setCurrentCell, setStartCell } from 'features/common/store/labyrinth';
 
 interface LabyrinthProps {
   configMode?: boolean;
   center?: boolean;
+  freezedToken?: boolean;
 }
 
 const Labyrinth = (props: LabyrinthProps): JSX.Element => {
-  const { configMode, center } = props;
-  const { startCell, currentCell, boardSize, blockedCells } = useAppSelector(state => state.common.labyrinth);
+  const { configMode, center, freezedToken } = props;
+  const { endCell, startCell, currentCell, boardSize, blockedCells } = useAppSelector(state => state.common.labyrinth);
   const [board, setBoard] = useState<Coordinate[][]>([]);
   const isArrowUp = useKeyPress('ArrowUp');
   const isArrowDown = useKeyPress('ArrowDown');
@@ -22,8 +23,8 @@ const Labyrinth = (props: LabyrinthProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const updateCoordinate = (shouldUpdate: boolean, targetCoordinate: Coordinate): void => {
-    if (shouldUpdate) {
-      if (isValidCoordinate(targetCoordinate, boardSize) && !isBlockedCell(targetCoordinate, blockedCells)) {
+    if (shouldUpdate && !freezedToken) {
+      if (isValidCell(targetCoordinate, boardSize) && !isBlockedCell(targetCoordinate, blockedCells)) {
         dispatch(setCurrentCell(targetCoordinate));
       }
     }
@@ -69,10 +70,10 @@ const Labyrinth = (props: LabyrinthProps): JSX.Element => {
         <Row key={i}>
           {row.map((cell, j) => (
             <Cell
-              isRightCell={cell.x === boardSize - 1}
-              isBottomCell={cell.y === 0}
-              isStartCell={cell.x === startCell.x && cell.y === startCell.y}
-              isEndCell={cell.x === boardSize - 1 && cell.y === 0}
+              isRightCell={isRightCell(cell, boardSize)}
+              isBottomCell={isBottomCell(cell)}
+              isStartCell={isSameCell(cell, startCell)}
+              isEndCell={isSameCell(cell, endCell)}
               isBlockedCell={isBlockedCell(cell, blockedCells)}
               key={j}
               onClick={() => {

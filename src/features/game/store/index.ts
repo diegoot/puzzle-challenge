@@ -1,32 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { setCurrentCell } from 'features/common/store/labyrinth';
 
 interface GameState {
-  isOver: boolean;
-  isWinner: boolean;
-  movementsLeft: number;
+  remainingMoves: number;
 }
 
 const initialState: GameState = {
-  isOver: false,
-  isWinner: false,
-  movementsLeft: 10
+  remainingMoves: 10
 };
 
 const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    setIsOver: state => {
-      state.isOver = true;
-    },
-    setIsWinner: state => {
-      state.isWinner = true;
-    },
-    decreaseMovementsLeft: state => {
-      state.movementsLeft -= 1;
-    },
     reset: () => initialState
+  },
+  extraReducers: {
+    [setCurrentCell.type]: state => {
+      state.remainingMoves -= 1;
+    }
   }
 });
+
+export const { reset } = gameSlice.actions;
 
 export default gameSlice.reducer;
