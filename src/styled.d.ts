@@ -9,6 +9,8 @@ declare module 'styled-components' {
       common: {
         black: string;
         white: string;
+        yellow: string;
+        gray: string;
       };
       success: string;
       failure: string;

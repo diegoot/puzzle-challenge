@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import { CELL_UNITS } from 'features/common/constants';
 
-const cellUnits = 6;
 const tokenUnits = 4;
 
 interface BoardProps {
@@ -10,12 +10,12 @@ interface BoardProps {
 
 export const Board = styled.div<BoardProps>`
   position: relative;
-  width: ${props => props.theme.spacing * cellUnits * props.boardSize}px;
+  width: ${props => props.theme.spacing * CELL_UNITS * props.boardSize}px;
   margin: ${props => (props.center ? '0 auto' : 0)};
 `;
 
 export const Row = styled.div`
-  height: ${props => props.theme.spacing * cellUnits}px;
+  height: ${props => props.theme.spacing * CELL_UNITS}px;
 `;
 
 interface CellProps {
@@ -33,9 +33,16 @@ export const Cell = styled.span<CellProps>`
   border: 1px solid black;
   border-right: ${props => (props.isRightCell ? `1px solid ${props.theme.palette.common.black}` : 'none')};
   border-bottom: ${props => (props.isBottomCell ? `1px solid ${props.theme.palette.common.black}` : 'none')};
-  background-color: ${props => (props.isStartCell ? 'yellow' : props.isEndCell ? props.theme.palette.success : props.isBlockedCell ? '#d9d9d9' : 'none')};
-  width: ${props => props.theme.spacing * cellUnits}px;
-  height: ${props => props.theme.spacing * cellUnits}px;
+  background-color: ${props =>
+    props.isStartCell
+      ? props.theme.palette.common.yellow
+      : props.isEndCell
+      ? props.theme.palette.success
+      : props.isBlockedCell
+      ? props.theme.palette.common.gray
+      : 'none'};
+  width: ${props => props.theme.spacing * CELL_UNITS}px;
+  height: ${props => props.theme.spacing * CELL_UNITS}px;
   text-align: center;
   box-sizing: border-box;
 `;
@@ -49,8 +56,8 @@ interface TokenProps {
 
 export const Token = styled.span<TokenProps>`
   position: absolute;
-  top: ${props => props.theme.spacing + props.theme.spacing * cellUnits * (props.boardSize - 1 - props.y)}px;
-  left: ${props => props.theme.spacing + props.theme.spacing * cellUnits * props.x}px;
+  top: ${props => props.theme.spacing + props.theme.spacing * CELL_UNITS * (props.boardSize - 1 - props.y)}px;
+  left: ${props => props.theme.spacing + props.theme.spacing * CELL_UNITS * props.x}px;
   display: ${props => (props.isVisible ? 'inline-block' : 'none')};
   width: ${props => props.theme.spacing * tokenUnits}px;
   height: ${props => props.theme.spacing * tokenUnits}px;

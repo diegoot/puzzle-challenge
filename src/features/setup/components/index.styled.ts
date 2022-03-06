@@ -22,6 +22,5 @@ interface ButtonProps {
 }
 
 export const Button = styled.button<ButtonProps>`
-  margin: 0;
   margin-top: ${props => (props.marginTop ? props.theme.spacing * props.marginTop : 0)}px;
 `;
