@@ -10,7 +10,7 @@ const localTheme = (theme: DefaultTheme) => ({
   spacing: 5
 });
 
-const Test = () => {
+const Setup = () => {
   const navigate = useNavigate();
 
   return (
@@ -34,4 +34,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Setup;
