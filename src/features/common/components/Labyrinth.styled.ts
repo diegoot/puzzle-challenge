@@ -5,13 +5,11 @@ const tokenUnits = 4;
 
 interface BoardProps {
   boardSize: number;
-  center?: boolean;
 }
 
 export const Board = styled.div<BoardProps>`
   position: relative;
   width: ${props => props.theme.spacing * CELL_UNITS * props.boardSize}px;
-  margin: ${props => (props.center ? '0 auto' : 0)};
 `;
 
 export const Row = styled.div`

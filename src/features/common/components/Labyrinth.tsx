@@ -8,12 +8,11 @@ import { setCurrentCell, setStartCell } from 'features/common/store/labyrinth';
 
 interface LabyrinthProps {
   configMode?: boolean;
-  center?: boolean;
   freezedToken?: boolean;
 }
 
 const Labyrinth = (props: LabyrinthProps): JSX.Element => {
-  const { configMode, center, freezedToken } = props;
+  const { configMode, freezedToken } = props;
   const { endCell, startCell, currentCell, boardSize, blockedCells } = useAppSelector(state => state.common.labyrinth);
   const [board, setBoard] = useState<Coordinate[][]>([]);
   const isArrowUp = useKeyPress('ArrowUp');
@@ -62,7 +61,7 @@ const Labyrinth = (props: LabyrinthProps): JSX.Element => {
   }, [isArrowLeft]);
 
   return (
-    <Board boardSize={boardSize} center={center}>
+    <Board boardSize={boardSize}>
       <Token x={currentCell.x} y={currentCell.y} isVisible={!configMode} boardSize={boardSize} />
       {/* In this case it is ok to use the index as key because  we are not rendering any given information that */}
       {/* gets updated and must be identified to be updated. These are just rows and cells. */}
