@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# About this project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It tries to resolved the challenge [here](https://github.com/lassmann/puzzle-challenge).
 
-## Available Scripts
+## How to run locally
 
-In the project directory, you can run:
+1. `git clone https://github.com/diegoot/puzzle-challenge.git`
+2. `cd puzzle-challenge`
+3. `yarn install`
+4. `yarn start`
 
-### `npm start`
+Now the app is available at http://localhost:3000
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run tests
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+`yarn test`
 
-### `npm test`
+## About the implemented resolution
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I used create-react-app to bootstrapped the project.
 
-### `npm run build`
+This is not a really big app but I tried to follow a folder structure that would also fit a bigger app if necessary. With that in mind I implemented a 'by feature' structure, that way I have all the things related to a feature (module or the name we want use) together which is in my opinion easier to maintain in bigger apps. In this way for example if you have to remove a feature of your app you do not have to go folder by folder (components, hooks, etc etc) looking for the code to delete.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I am also using absolute paths because they are easier to understand (you do not need to think where you will end with ../../) and in general your imports keep working if you move things around. The only time where I use relative paths is to import things from the same folder because they will probably always be together.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I am using hooks, built-in and custom ones. The way I decided about a custom hook or a helper function was taking two things into account: 1. if I need to use built-in hooks in my helper code 2. where I need my helper code. For that reason I have a useKeyPress hook and a set of helper functions to validate cells.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To handle app state I used redux toolkit. It is a library built around redux which tries to simplify the work needed when using it. I could have use another approach too, like react context API for example, that is a matter of case in general unless we have performance issues or similar but I think in this case the app is pretty fluid.
 
-### `npm run eject`
+## Possible technical improvements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+There are probably many things that could be improved, one that I think is really useful is integrating prettier with eslint and setting up some githooks to guarantee what code is uploaded the to repo. For this challenge I used the prettier plugin plus a .prettierrc config file but that is not enough in bigger apps/teams.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Main libraries added
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- styled-components
+- react-router-dom
+- redux-toolkit
+- react-redux
+- redux
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Posibility to expand
 
-## Learn More
+Because of the way I implemented the solution a few useful things should be pretty easy to implement, for example:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Adding things to the setup page, like board size, initial moves amount, etc.
+- I did the board proportional to a variable in the theme so I could easily add a magnifying glass icon for people with disabilities.
+- Using the theme we can normilize the typography, colors, annd other things.
+- Adding a high scores page should be easier too because I have a router in place. We could save the scores in the store, local storage or even implement an endpoint since redux toolkit already have middlewares to handle async code.
