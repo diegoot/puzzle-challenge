@@ -10,7 +10,7 @@ const localTheme = (theme: DefaultTheme) => ({
   spacing: 5
 });
 
-const Setup = () => {
+const Setup = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (

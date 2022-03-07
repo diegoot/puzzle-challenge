@@ -7,7 +7,7 @@ import { isSameCell } from 'features/common/utils';
 import { reset } from 'features/game/store';
 import { setCurrentCell } from 'features/common/store/labyrinth';
 
-const Game = () => {
+const Game = (): JSX.Element => {
   const { boardSize, currentCell, startCell, endCell } = useAppSelector(state => state.common.labyrinth);
   const { remainingMoves } = useAppSelector(state => state.game);
   const isWinner = isSameCell(currentCell, endCell);
